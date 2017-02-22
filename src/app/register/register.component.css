@@ -1,0 +1,12 @@
+#registration-component{
+    color: white;
+    position: relative;
+    height: 100vh;
+    padding-top: 5%;
+}
+
+#register-header{
+    font-family: 'Righteous', cursive;
+    font-weight: 700;
+    font-size: 23px;
+}

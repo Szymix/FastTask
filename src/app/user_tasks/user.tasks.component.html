@@ -1,0 +1,277 @@
+<div id="my-tasks-component">
+  <div class="container groups-panels">
+    <div class="row">
+
+      <!-- CREATED TASKS -->
+
+      <div class="col-md-6">
+        <div class="panel panel-default panel-horizontal">
+          <div class="panel-heading">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab1default" data-toggle="tab">Utworzone zadania</a></li>
+              <li class="dropdown">
+                <a href="#" data-toggle="dropdown">Zadanie według statusu <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#ASSIGNED" data-toggle="tab">Do zaakceptowania</a></li>
+                  <li><a href="#ACCEPTED" data-toggle="tab">Zaakceptowane</a></li>
+                  <li><a href="#DONE" data-toggle="tab">Wykonane</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab1default">
+                <div class="created-tasks">
+                  <div *ngFor="let createdTask of ordererTasks">
+                    <div class='col-md-12'>
+                      <div class='tile-progress'>
+                        <div class='tile-header'>
+                          <h3>{{createdTask.id}}. {{createdTask.title}}</h3>
+                        </div>
+                        <div class="tile-date">
+                          <h5>{{createdTask.startDate | date:'yyyy-MM-d h:mm'}} - {{createdTask.endDate | date:'yyyy-MM-d h:mm'}}</h5>
+                        </div>
+                        <div class='tile-body'>
+                          <div class="tile-group">
+                            <h4>Grupa: {{createdTask.group.name}}</h4>
+                          </div>
+                          <h4>Opis: {{createdTask.description}}</h4>
+                          <div class="tile-executor">
+                            <h4>Zleceniobiorca: {{createdTask.executor.login}}</h4>
+                          </div>
+                        </div>
+                        <div class='tile-buttons'>
+                          <button class="btn btn-primary">Edytuj</button>
+                            <!--<button *ngIf="confirmDelete" class="btn btn-danger" (click)="switchToConfirm(createdTask)">Usuń</button>-->
+                            <button  class="btn btn-danger"  (click)="deleteTask(createdTask)">Usuń</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- ASSGINED TASKS -->
+
+              <div class="tab-pane fade" id="ASSIGNED">
+                <div class="assigned-tasks">
+                  <div *ngFor="let task of executorAssignedTasks">
+                    <div class='col-md-12'>
+                      <div class='tile-progress'>
+                        <div class='tile-header'>
+                          <h3>{{task.title}}</h3>
+                        </div>
+                        <div class="tile-date">
+                          <h5>{{task.startDate | date:'yyyy-MM-d h:mm'}} - {{task.endDate | date:'yyyy-MM-d h:mm'}}</h5>
+                        </div>
+                        <div class='tile-body'>
+                          <div class="tile-group">
+                            <h4>Grupa: {{task.group.name}}</h4>
+                          </div>
+                          <h4>Opis: {{task.description}}</h4>
+                          <div class="tile-executor">
+                            <h4>Zlecenidawnca: {{task.orderer.login}}</h4>
+                          </div>
+                        </div>
+                        <div class='tile-buttons'>
+                          <button class="btn btn-success" (click)="acceptTask(task)">Zaakceptuj</button>
+                          <button class="btn btn-danger" (click)="declinedTask(task)">Odrzuć</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACCEPTED TASKS -->
+
+              <div class="tab-pane fade" id="ACCEPTED">
+                <div class="accepted-tasks">
+                  <div *ngFor="let task of executorAcceptedTasks">
+                    <div class='col-md-12'>
+                      <div class='tile-progress'>
+                        <div class='tile-header'>
+                          <h3>{{task.title}}</h3>
+                        </div>
+                        <div class="tile-date">
+                          <h5>{{task.startDate | date:'yyyy-MM-d h:mm'}} - {{task.endDate | date:'yyyy-MM-d h:mm'}}</h5>
+                        </div>
+                        <div class='tile-body'>
+                          <div class="tile-group">
+                            <h4>Grupa: {{task.group.name}}</h4>
+                          </div>
+                          <h4>Opis: {{task.description}}</h4>
+                          <div class="tile-executor">
+                            <h4>Zlecenidawnca: {{task.orderer.login}}</h4>
+                          </div>
+                        </div>
+                        <div class='tile-buttons'>
+                          <button class="btn btn-success" (click)="doneTask(task)">Wykonano</button>
+                          <button class="btn btn-danger" >Porzuć</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DONE TASKS -->
+
+              <div class="tab-pane fade" id="DONE">
+                <div class="accepted-tasks">
+                  <div *ngFor="let task of executorDoneTasks">
+                    <div class='col-md-6'>
+                      <div class='tile-progress'>
+                        <div class='tile-header'>
+                          <h3>{{task.title}}</h3>
+                        </div>
+                        <div class='tile-body'>
+                          <div class="tile-group">
+                            <h4>Grupa: {{task.group.name}}</h4>
+                          </div>
+                          <h4>Opis: {{task.description}}</h4>
+                          <div class="tile-executor">
+                            <h4>Zleceniodawca: {{task.orderer.login}}</h4>
+                          </div>
+                        </div>
+                        <div class='tile-buttons'>
+                          <button class="btn btn-danger" disabled>Usuń</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATE TASK -->
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading" align="center">
+            Utwórz zadanie
+          </div>
+
+          <div class="panel-body">
+                <form role="form" class="form-horizontal registration-form" (ngSubmit)="createTask()">
+
+                  <div class="create-task">
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Nazwa</label>
+                      <div class="col-md-4">
+                        <input type="text" class="form-control input-md" id="name" name="name"
+                               [(ngModel)]="newTask.name"
+                               #name="ngModel" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Data rozpoczęcia</label>
+                      <div class="col-md-4">
+                        <input type="date" class="form-control" id="startDate" name="startDate"
+                               [(ngModel)]="newTask.startDate" #startDate="ngModel" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Data zakończenia</label>
+                      <div class="col-md-4">
+                        <input type="date" class="form-control" id="endDate" name="endDate"
+                               [(ngModel)]="newTask.endDate"
+                               #endDate="ngModel" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Grupa docelowa</label>
+                      <div class="col-md-4">
+                        <select class="form-control" id="targetGroup" name="targetGroup"
+                                [(ngModel)]="newTask.targetGroup"
+                                #targetGroup="ngModel" required>
+                          <option *ngFor="let group of userOptionGroups" value="{{group.id}}">{{group.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Wykonawca</label>
+                      <div class="col-md-4">
+                        <input type="text" class="form-control" id="executor" name="executor"
+                               [(ngModel)]="newTask.executor"
+                               #executor="ngModel" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group" align="center">
+                      <label class="col-md-12">Pola Opcjonalne</label>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group multi-control-group">
+                        <input type="text" placeholder="nazwa " class="form-control" id="keyField1" name="keyField1"
+                               [(ngModel)]="newTask.keyField1"
+                               #keyField1="ngModel">
+                        <span class="input-group-addon">:</span>
+                        <input type="text" placeholder="wartość" class="form-control" id="valueField1" name="valueField1"
+                               [(ngModel)]="newTask.valueField1"
+                               #valueField1="ngModel">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group multi-control-group">
+                        <input type="text" placeholder="nazwa " class="form-control" id="keyField2" name="keyField2"
+                               [(ngModel)]="newTask.keyField2"
+                               #keyField2="ngModel">
+                        <span class="input-group-addon">:</span>
+                        <input type="text" placeholder="wartość" class="form-control" id="valueField2" name="valueField2"
+                               [(ngModel)]="newTask.valueField2"
+                               #valueField2="ngModel">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group multi-control-group">
+                        <input type="text" placeholder="nazwa " class="form-control" id="keyField3" name="keyField3"
+                               [(ngModel)]="newTask.keyField3"
+                               #keyField3="ngModel">
+                        <span class="input-group-addon">:</span>
+                        <input type="text" placeholder="wartość" class="form-control" id="valueField3" name="valueField3"
+                               [(ngModel)]="newTask.valueField3"
+                               #valueField3="ngModel">
+                      </div>
+                    </div>
+
+                    <div class="form-group" align="center">
+                      <label class="col-md-12">Opis</label>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12" align="center">
+                    <textarea class="form-control" id="textareaTask" name="description"
+                              [(ngModel)]="newTask.description"
+                              #description="ngModel" required></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group" align="center">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-success center-block">Utwórz Zadanie</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>

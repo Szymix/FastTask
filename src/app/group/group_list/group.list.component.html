@@ -1,0 +1,42 @@
+  <div id="groups-list-component">
+    <div class="container" id="single-group-template">
+      <div *ngIf="loading" class="loading">LOADING
+        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+      </div>
+    <div class="row">
+      <div class="col-md-6" *ngFor="let group of group_list">
+        <div class="panel panel-default">
+          <div class="panel-body">
+              <div class="group-title" align="center">
+                  {{group.name}}
+              </div>
+              <div class="group-date" align="center">
+                {{group.createDate}}
+              </div>
+              <hr>
+              <div class="group-body">
+                Opis: {{group.description}}
+              </div>
+              <hr>
+              <div class="group-join" align="center">
+                <!--<form (ngSubmit)="joinGroup()">-->
+                  <button class="btn btn-ft" (click)="joinGroup()"><span class="glyphicon glyphicon-save"> </span> Dołącz</button>
+                 <!--</form>-->
+                <a [routerLink]="['/group_detail',group.id]">
+                  <button class="btn btn-default">Więcej</button>
+                </a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-group">
+    <a class="btn--circle" [routerLink]="['/user_groups']">
+      <span class="btn-stage"><i class="glyphicon glyphicon-plus"></i></span>
+      <span class="btn-stage"><h4><b>Dodaj Grupe</b></h4></span>
+    </a>
+  </div>
+
+</div>

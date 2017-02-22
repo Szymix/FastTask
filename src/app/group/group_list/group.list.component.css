@@ -1,0 +1,71 @@
+#groups-list-component{
+  height: 100%;
+  padding-top: 60px;
+}
+#single-group-template {
+  font-family: 'Righteous', cursive;
+  font-weight: 700;
+  font-size: 20px;
+}
+.loading{
+  padding-top: 30%;
+  padding-left: 45%;
+}
+.group-title{
+  font-size: 45px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.group-body{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 15px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.add-group {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn--circle {
+  position: relative;
+  font-family: sans-serif;
+  text-decoration: none;
+  border-radius: 1000px;
+  height: 60px;
+  width: 60px;
+  transition: all cubic-bezier(0.31, -0.105, 0.43, 1.4) 0.2s;
+  background-color: #E2513F;
+}
+.btn--circle:hover {
+  width: 135px;
+}
+.btn--circle:hover .btn-stage:first-child {
+  opacity: 0;
+}
+.btn--circle:hover .btn-stage:nth-child(n+2) {
+  opacity: 1;
+  transition: opacity linear calc(0.2s + 0.05s);
+}
+
+.btn-stage {
+  font-family: 'Righteous', cursive;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 2rem;
+  transition: opacity linear calc(0.2s - 0.05s);
+}
+.btn-stage:nth-child(n+2) {
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 1rem;
+}

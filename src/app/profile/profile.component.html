@@ -1,0 +1,92 @@
+<div id="profile-component">
+  <div class="container">
+    <h1 class="page-header">MÓJ PROFIL</h1>
+    <div class="row">
+
+      <div class="col-md-6 personal-info">
+        <form #f="ngForm" class="form-horizontal" role="form" (ngSubmit)="changePass()">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Login:</label>
+            <div class="col-lg-8">
+              <h5><b>{{login}}</b></h5>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Nowe hasło:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" id="password" name="password"
+                     [(ngModel)]="newPass.password"
+                     #password="ngModel" required validateEqual="confirmPassword">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Potwierdź nowe hasło:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
+                     [(ngModel)]="newPass.confirmPassword"
+                     #confirmPassword="ngModel" required validateEqual="password">
+              <small class="validate" [hidden]="confirmPassword.valid ||  (confirmPassword.pristine && !f.submitted)">
+                Hasła nie są zgodne
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <button class="btn btn-ft" type="submit">Zapisz zmiany</button>
+              <span></span>
+              <button class="btn btn-default" type="reset">Anuluj</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading" align="center">
+            Wygenerowani użytkownicy
+          </div>
+
+
+          <div class="panel-body">
+
+            <div class="row">
+              <label class="col-md-4 control-label">Wybierz grupe</label>
+              <div class="col-md-4">
+                <select class="form-control" id="id_group" name="id_group"
+                        [(ngModel)]="raportGroup.id_group"
+                        #id_group="ngModel" required>
+                  <option *ngFor="let group of selectGroup" value="{{group.id}}">{{group.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-ft" (click)="loadUsers()">Pokaż</button>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row" id="print-section">
+                <table class="table table-responsive table-striped">
+                  <thead>
+                    <th>Login</th>
+                    <th>Password</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let users of generatedUsers">
+                      <td>{{users.user.login}}</td>
+                      <td>{{users.user.pass}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <hr>
+            <div align="center"> <button class="btn btn-primary" (click)="print()">Drukuj</button></div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

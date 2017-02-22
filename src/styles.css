@@ -1,0 +1,59 @@
+html, body {
+  height: 100%;
+}
+/***** SPINNER LOADING *****/
+.spinner {
+  width: 40px;
+  height: 40px;
+  background-color: #333;
+
+  margin: 100px auto;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
+      transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+      -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    } 100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+      }
+}
+
+/***** THEME COLOR *****/
+#services, #groups-list-component, #group-details-component, #contact-component, #profile-component, #registration-component, #user-panel-component, #my-tasks-component, nav.navbar-findcond {
+  background-color: #11151C;
+}
+
+/***** FAST TASK BUTTON *****/
+.btn-ft{
+  color: white;
+  background-color: #2d7082;
+}
+
+/***** FAST TASK BUTTON 2 *****/
+.btn-ft2{
+  color: white;
+  background-color: #E2513F;
+}
+
+/***** FONTS COLOR *****/
+.group-title{
+  color: #2d7082;
+}
+
+/***** VALIDATE COLOR *****/
+.validate {
+  color: #c02514;
+}

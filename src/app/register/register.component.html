@@ -1,0 +1,64 @@
+<div id="registration-component">
+  <div id="container">
+    <div id="row">
+      <div class="col-md-6">
+        <h3 class="dark-grey" id="register-header">Rejestracja</h3>
+        <form role="form" name="form" (ngSubmit)="register()">
+          <div class="form-group col-lg-12">
+            <label>Login</label>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="new_user.username" #username="ngModel" value="" required>
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label>Hasło</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="new_user.password" #password="ngModel" required>
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label>Potwierdź hasło</label>
+            <input type="password" name="" class="form-control" id="" value="" required>
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label>Adres e-mail</label>
+            <input type="email" name="" class="form-control" id="" value="" disabled>
+          </div>
+
+          <div class="form-group col-lg-6">
+            <label>Potwierdź adres e-mail</label>
+            <input type="email" name="" class="form-control" id="" value="" disabled>
+          </div>
+
+          <div class="form-group col-lg-8"></div>
+          <div class="form-group col-lg-2">
+            <button type="submit" class="btn btn-success">Zarejestruj</button>
+          </div>
+          <div class="form-group col-lg-2"></div>
+
+         </form>
+      </div>
+
+      <div class="col-md-6">
+          <h3 class="dark-grey" id="register-header">Warunki Rejestracji</h3><br>
+
+          <p>
+            Każda osoba, zakładająca konto użytkownika na stronie <a href=""><b>www.fasttask.pl</b></a> zobowiązuje się do przestrzegania niniejszego regulaminu.
+            Nie przestrzeganie regulaminu będzie skutkowało usunięciem konta lub innymi sankcjami.
+          </p>
+          <p>
+            1. Używanie niecenzurowanych nazw loginów, grup oraz zadań będzie skutkować blokadą konta.
+          </p>
+          <p>
+            2. Brak jakiejkolwiek aktywności użytkownika na stronie przez okres dłuższy niż 6 miesięcy skutkować będzie usunięciem konta.
+          </p>
+        <p>
+            3. Każda grupa po okresie 3 miesięcy od daty jej wygasnięcia będzie automatycznie usuwana.
+        </p>
+        <p>
+            4. W przypadku wprowadzenia zmian w zasadach lub regulaminach, serwis nie zobowiązuje się do osobistego powiadomiania każdego użytkownika o zaistniałej sytuacji.
+        </p>
+
+        </div>
+    </div>
+  </div>
+</div>

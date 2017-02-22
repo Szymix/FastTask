@@ -1,0 +1,33 @@
+#profile-component{
+    position: relative;
+    height: 100vh;
+    padding-top: 60px;
+}
+
+#print-section {
+    max-height: 460px;
+    overflow-y: scroll;
+}
+
+.page-header{
+    font-family: 'Righteous', cursive;
+    font-weight: 700;
+    font-size: 23px;
+    color: white;
+}
+.form-horizontal{
+  color: whitesmoke;
+}
+
+table,
+thead,
+tr,
+tbody,
+th,
+td {
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+}

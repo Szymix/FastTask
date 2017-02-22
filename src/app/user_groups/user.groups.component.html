@@ -1,0 +1,221 @@
+<div id="user-panel-component">
+    <div class="container groups-panels">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                           MOJE GRUPY
+                    </div>
+                    <div class="panel-body my-groups">
+                        <div *ngIf="loading" class="loading" align="center">LOADING
+                          <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                        </div>
+                        <div *ngFor="let groups of userGroups">
+                            <div class='col-md-6'>
+                                <div class='tile-progress'>
+                                    <div class='tile-body'>
+                                      <div class="tile-header">
+                                        <a [routerLink]="['/group_detail',groups.id]">
+                                          {{groups.name}}
+                                        </a>
+                                      </div>
+                                      <h4 align="center">{{groups.createDate}}</h4>
+                                      <h5 align="center">Administrator: {{groups.owner.login}}</h5>
+                                        <div class='tile-buttons'>
+                                          <button class="btn btn-danger" (click)="deleteGroup(groups)">Usuń</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          <!-- CREATE GROUP -->
+
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#createGroup" data-toggle="tab">Utwórz grupe</a></li>
+                  <li><a href="#generateUsers" data-toggle="tab">Wygeneruj użytkowników</a></li>
+                  <li class="dropdown">
+                    <a href="#" data-toggle="dropdown">Zaproszenia <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#inviteToGroup" data-toggle="tab">Zaproś do grupy</a></li>
+                      <li><a href="#myInvitations" data-toggle="tab">Moje zaproszenia</a></li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </div>
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div class="tab-pane fade in active" id="createGroup">
+                    <form class="form-horizontal" #f="ngForm" (ngSubmit)="createGroup()">
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Nazwa</label>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control input-md" type="text" id="name" name="name"
+                                 [(ngModel)]="newGroup.name" #name="ngModel" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Prefix</label>
+                        <div class="col-md-4">
+                          <input type="text" class="form-control" id="prefix" name="prefix"
+                                 [(ngModel)]="newGroup.prefix" #prefix="ngModel" required minlength="3" maxlength="5">
+                          <small class="validate" [hidden]="prefix.valid || (prefix.pristine && !f.submitted)">
+                            Minimum 3 znaki
+                          </small>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Widoczność</label>
+                        <div class="col-md-4">
+                          <select class="form-control" id="visibility" name="visibility"
+                                  [(ngModel)]="newGroup.visibility" #visibility="ngModel">
+                            <option value="public">Publiczna</option>
+                            <option value="private">Prywatna</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Opis</label>
+                        <div class="col-md-4">
+                          <textarea class="form-control" id="description" name="description"
+                                    [(ngModel)]="newGroup.description" #description="ngModel" required></textarea>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success center-block"><i class="fa fa-plus"
+                                                                                      aria-hidden="true"></i> Utwórz
+                          Grupe
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="tab-pane fade" id="generateUsers">
+                    <form class="form-horizontal" (ngSubmit)="generateUsers()">
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Grupa docelowa</label>
+                        <div class="col-md-4">
+                          <select class="form-control" name="targetGroup"
+                                  [(ngModel)]="generateUseres.targetGroup"
+                                  #targetGroup="ngModel" required>
+                            <option *ngFor="let group of userGroups" value="{{group.id}}">{{group.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Ilość organizatorów:</label>
+                        <div class="col-md-4">
+                          <input type="number" class="form-control" id="organiser" name="organiser"
+                                 [(ngModel)]="generateUseres.organiser" #organiser="ngModel" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Ilość kontrahentów:</label>
+                        <div class="col-md-4">
+                          <input type="number" class="form-control" id="contractor" name="contractor"
+                                 [(ngModel)]="generateUseres.contractor" #contractor="ngModel" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success center-block"><i class="fa fa-plus"
+                                                                                      aria-hidden="true"></i> Wygeneruj
+                        </button>
+                      </div>
+
+                    </form>
+                  </div>
+
+                  <!-- INVITE TO GROUP -->
+
+                  <div class="tab-pane fade" id="inviteToGroup">
+                    <form class="form-horizontal" (ngSubmit)="inviteToGroup()">
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Grupa docelowa</label>
+                        <div class="col-md-4">
+                          <select class="form-control" name="targetGroup"
+                                  [(ngModel)]="inviteUser.targetGroup"
+                                  #targetGroup="ngModel" required>
+                            <option *ngFor="let group of userGroups" value="{{group.id}}">{{group.name}}</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Nazwa użytkownika:</label>
+                        <div class="col-md-4">
+                          <input type="string" class="form-control" id="invitedUserId" name="invitedUserId"
+                                 [(ngModel)]="inviteUser.invitedUserId" #invitedUserId="ngModel" required>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Rola:</label>
+                        <div class="col-md-4">
+                          <select type="string" class="form-control" id="role" name="role"
+                                 [(ngModel)]="inviteUser.role" #role="ngModel" required>
+                            <option value="ORGANISER">Moderator</option>
+                            <option value="CONTRACTOR">Członek</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success center-block"> Zaproś
+                        </button>
+                      </div>
+
+                    </form>
+                  </div>
+
+                  <!-- MY INVITATIONS -->
+
+                  <div class="tab-pane fade" id="myInvitations">
+
+                    <div class="panel-body">
+                      <div *ngFor="let invitations of userInvitations">
+                        <div class='col-md-12'>
+                          <div class='tile-progress'>
+                            <div class='tile-header'>
+                              <h3>Grupa: {{invitations.group.name}}</h3>
+                              <div class='tile-body'>
+                                <h4>Od: {{invitations.submitter.login}}</h4>
+                                <h4>Rola: {{invitations.role}}</h4>
+                              </div>
+                            </div>
+                          <div class="tile-buttons">
+                            <button type="submit" class="btn btn-success" (click)="acceptInvitation(invitations)"> Akceptuj</button>
+                            <button type="submit" class="btn btn-danger" (click)="declineInvitation(invitations)"> Odrzuć</button>
+                          </div>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+</div>
+
