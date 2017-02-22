@@ -8,11 +8,12 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 ## Getting started
 - create new empty project (WebStrom recommended)
-- git clone https://github.com/kaczla/PI.git
-- git checkout branch AngularCLI
-- go to the main project folder (Fast-Task)
-- npm i
-- typings install
+- git clone https://github.com/Szymix/FastTask.git
+- go to the main project folder
+- npm install angular-cli
+- npm clean cache
+- npm install
+- npm install angular2-jwt
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
